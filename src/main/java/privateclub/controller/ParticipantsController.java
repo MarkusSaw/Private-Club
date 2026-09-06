@@ -1,27 +1,36 @@
 package privateclub.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import privateclub.dto.ParticipantsDto;
 import privateclub.model.Participants;
+import privateclub.service.PrivateClubService;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/participants")
 
 public class ParticipantsController {
 
+    public final PrivateClubService privateClubService;
+
     @GetMapping("/{id}")
-    public Participants getParticipant(@PathVariable long id){
-
+    public ParticipantsDto getParticipant(@PathVariable long id){
+        return privateClubService.getUserById(id);
     }
+
     @PostMapping
-    public Participants createParticipant(@RequestBody Participants participants){
-
+    public ParticipantsDto createParticipant(@RequestBody Participants participants){
+        return privateClubService.createUser(participants);
     }
+
     @PostMapping("/{id}")
-    public  Participants updateParticipant(@PathVariable long id,@RequestBody Participants participants){
+    public  ParticipantsDto updateParticipant(@PathVariable long id,@RequestBody Participants participants){
+        return privateClubService.updateUser(id , participants);
 
     }
     @DeleteMapping("/{id}")
-    public  Participants deleteParticipant(@PathVariable long id){
-
+    public  ParticipantsDto deleteParticipant(@PathVariable long id){
+        return privateClubService.deleteUser(id);
     }
 }

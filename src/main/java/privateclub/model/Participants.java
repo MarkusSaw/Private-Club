@@ -32,7 +32,7 @@ public class Participants {
 
     @OneToMany(mappedBy = "participant")
     @JoinColumn(name = "codes")
-    private List<Qrсodes> qrсodes = new ArrayList<>();
+    private List<Qrcodes> qrcodes = new ArrayList<>();
 
 
 }

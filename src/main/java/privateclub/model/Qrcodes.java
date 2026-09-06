@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "qrcodes")
-public class Qrсodes {
+public class Qrcodes {
 
 
     @Id

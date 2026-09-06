@@ -10,8 +10,17 @@ public class ParticipantsMapper {
                 ptc.getId(),
                 ptc.getFirstname(),
                 ptc.getLastname(),
-                ptc.getPatronymic()
-
+                ptc.getPatronymic(),
+                QrcodesMapper.listQrDto(ptc.getQrcodes())
         );
+    }
+
+    public static Participants toEntity(ParticipantsDto dto){
+        Participants ptc = new Participants();
+        ptc.setFirstname(dto.firstname());
+        ptc.setLastname(dto.lastname());
+        ptc.setPatronymic(dto.patronymic());
+        ptc.setQrcodes(QrcodesMapper.listToEntity(dto.qrcodes()));
+        return ptc;
     }
 }
