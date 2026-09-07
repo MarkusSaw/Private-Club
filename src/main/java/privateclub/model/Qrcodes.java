@@ -21,9 +21,20 @@ public class Qrcodes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "codes", nullable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "codes", nullable = false, unique = true)
     private UUID codes;
+
+    @ManyToOne
+    @JoinColumn(name = "participant_id")
+
+
+    private Participants participant;
+
+    public Qrcodes(Participants participant){
+        this.codes = UUID.randomUUID();
+        this.participant = participant;
+
+    }
 
 
 }

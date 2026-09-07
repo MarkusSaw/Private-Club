@@ -13,7 +13,7 @@ import privateclub.repository.QrcodesRepository;
 @Service
 public class PrivateClubService {
     private final ParticipantsRepository participantsRepository;
-    private final QrcodesRepository qrcodesRepository;
+//    private final QrcodesRepository qrcodesRepository;
 
     public ParticipantsDto getUserById(Long id) {
         Participants participants = participantsRepository.findById(id).orElseThrow();
@@ -37,7 +37,7 @@ public class PrivateClubService {
     public ParticipantsDto deleteUser(Long id) {
         Participants participants = participantsRepository.findById(id).orElseThrow();
         participantsRepository.delete(participants);
-        return ParticipantsMapper.toDto(deleteParticipants);
+        return ParticipantsMapper.toDto(participants);
     }
 
 }

@@ -30,8 +30,8 @@ public class Participants {
     @Column(name = "patronymic", nullable = false)
     private  String patronymic;
 
-    @OneToMany(mappedBy = "participant")
-    @JoinColumn(name = "codes")
+    @OneToMany
+    @JoinColumn(name = "participant_id")
     private List<Qrcodes> qrcodes = new ArrayList<>();
 
 
