@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import privateclub.dto.ParticipantsDto;
 import privateclub.model.Participants;
-import privateclub.service.PrivateClubService;
+import privateclub.service.ParticipantsService;
 
 @AllArgsConstructor
 @RestController
@@ -12,25 +12,25 @@ import privateclub.service.PrivateClubService;
 
 public class ParticipantsController {
 
-    public final PrivateClubService privateClubService;
+    public final ParticipantsService participantsService;
 
     @GetMapping("/{id}")
     public ParticipantsDto getParticipant(@PathVariable long id){
-        return privateClubService.getUserById(id);
-    }
-
-    @PostMapping
-    public ParticipantsDto createParticipant(@RequestBody Participants participants){
-        return privateClubService.createUser(participants);
+        return participantsService.getUserById(id);
     }
 
     @PostMapping("/{id}")
+    public ParticipantsDto createParticipant(@RequestBody Participants participants){
+        return participantsService.createUser(participants);
+    }
+
+    @PutMapping("/{id}")
     public  ParticipantsDto updateParticipant(@PathVariable long id,@RequestBody Participants participants){
-        return privateClubService.updateUser(id , participants);
+        return participantsService.updateUser(id , participants);
 
     }
     @DeleteMapping("/{id}")
     public  ParticipantsDto deleteParticipant(@PathVariable long id){
-        return privateClubService.deleteUser(id);
+        return participantsService.deleteUser(id);
     }
 }

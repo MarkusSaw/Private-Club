@@ -7,13 +7,11 @@ import privateclub.dto.ParticipantsDto;
 import privateclub.mapper.ParticipantsMapper;
 import privateclub.model.Participants;
 import privateclub.repository.ParticipantsRepository;
-import privateclub.repository.QrcodesRepository;
 
 @AllArgsConstructor
 @Service
-public class PrivateClubService {
+public class ParticipantsService {
     private final ParticipantsRepository participantsRepository;
-//    private final QrcodesRepository qrcodesRepository;
 
     public ParticipantsDto getUserById(Long id) {
         Participants participants = participantsRepository.findById(id).orElseThrow();
