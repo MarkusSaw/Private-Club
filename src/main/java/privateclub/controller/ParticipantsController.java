@@ -20,13 +20,13 @@ public class ParticipantsController {
     }
 
     @PostMapping("/{id}")
-    public ParticipantsDto createParticipant(@RequestBody Participants participants){
-        return participantsService.createUser(participants);
+    public ParticipantsDto createParticipant(@RequestBody ParticipantsDto requestParticipantsDto){
+        return participantsService.createUser(requestParticipantsDto);
     }
 
     @PutMapping("/{id}")
-    public  ParticipantsDto updateParticipant(@PathVariable long id,@RequestBody Participants participants){
-        return participantsService.updateUser(id , participants);
+    public  ParticipantsDto updateParticipant(@PathVariable long id,@RequestBody ParticipantsDto requestParticipantsDto){
+        return participantsService.updateUser(id , requestParticipantsDto);
 
     }
     @DeleteMapping("/{id}")
