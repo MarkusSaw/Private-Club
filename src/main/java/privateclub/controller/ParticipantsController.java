@@ -3,7 +3,6 @@ package privateclub.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import privateclub.dto.ParticipantsDto;
-import privateclub.model.Participants;
 import privateclub.service.ParticipantsService;
 
 @AllArgsConstructor

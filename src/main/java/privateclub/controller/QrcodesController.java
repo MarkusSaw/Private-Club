@@ -3,7 +3,6 @@ package privateclub.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import privateclub.dto.QrcodesDto;
-import privateclub.model.Qrcodes;
 import privateclub.service.QrcodesService;
 
 @AllArgsConstructor
