@@ -14,20 +14,22 @@ public class QrcodesController {
 
 
     @GetMapping("/{id}")
-    public QrcodesDto getQrcode(@PathVariable long id){
+    public QrcodesDto getQrcode(@PathVariable long id) {
         return qrcodesService.getCodeById(id);
     }
+
     @PostMapping("/{id}")
-    public QrcodesDto createQrcode(@RequestBody QrcodesDto requestQrcodesDto){
+    public QrcodesDto createQrcode(@RequestBody QrcodesDto requestQrcodesDto) {
         return qrcodesService.createCode(requestQrcodesDto);
     }
+
     @PutMapping("/{id}")
-    public QrcodesDto updateQrcode(@PathVariable long id, @RequestBody QrcodesDto requestQrcodesDto){
-        return qrcodesService.updateCode(id,requestQrcodesDto);
+    public QrcodesDto updateQrcode(@PathVariable long id, @RequestBody QrcodesDto requestQrcodesDto) {
+        return qrcodesService.updateCode(id, requestQrcodesDto);
     }
 
     @DeleteMapping("/{id}")
-    public QrcodesDto deleteQrcode(@PathVariable long id){
+    public QrcodesDto deleteQrcode(@PathVariable long id) {
         return qrcodesService.deleteCode(id);
     }
 }

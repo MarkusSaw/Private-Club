@@ -14,22 +14,23 @@ public class ParticipantsController {
     public final ParticipantsService participantsService;
 
     @GetMapping("/{id}")
-    public ParticipantsDto getParticipant(@PathVariable long id){
+    public ParticipantsDto getParticipant(@PathVariable long id) {
         return participantsService.getUserById(id);
     }
 
     @PostMapping("/{id}")
-    public ParticipantsDto createParticipant(@RequestBody ParticipantsDto requestParticipantsDto){
+    public ParticipantsDto createParticipant(@RequestBody ParticipantsDto requestParticipantsDto) {
         return participantsService.createUser(requestParticipantsDto);
     }
 
     @PutMapping("/{id}")
-    public  ParticipantsDto updateParticipant(@PathVariable long id,@RequestBody ParticipantsDto requestParticipantsDto){
-        return participantsService.updateUser(id , requestParticipantsDto);
+    public ParticipantsDto updateParticipant(@PathVariable long id, @RequestBody ParticipantsDto requestParticipantsDto) {
+        return participantsService.updateUser(id, requestParticipantsDto);
 
     }
+
     @DeleteMapping("/{id}")
-    public  ParticipantsDto deleteParticipant(@PathVariable long id){
+    public ParticipantsDto deleteParticipant(@PathVariable long id) {
         return participantsService.deleteUser(id);
     }
 }

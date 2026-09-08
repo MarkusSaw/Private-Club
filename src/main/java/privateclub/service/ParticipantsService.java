@@ -12,6 +12,7 @@ import privateclub.repository.ParticipantsRepository;
 @AllArgsConstructor
 @Service
 public class ParticipantsService {
+
     private final ParticipantsRepository participantsRepository;
 
     public ParticipantsDto getUserById(Long id) {
