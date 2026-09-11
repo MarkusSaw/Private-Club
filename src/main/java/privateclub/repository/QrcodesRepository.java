@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import privateclub.model.Qrcodes;
 
+import java.util.Optional;
+
 @Repository
 public interface QrcodesRepository extends JpaRepository<Qrcodes, Long> {
+    Optional<Qrcodes> findFirstByParticipantId(Long participantId);
 }

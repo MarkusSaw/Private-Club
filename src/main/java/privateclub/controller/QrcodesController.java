@@ -18,7 +18,7 @@ public class QrcodesController {
         return qrcodesService.getCodeById(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     public QrcodesDto createQrcode(@RequestBody QrcodesDto requestQrcodesDto) {
         return qrcodesService.createCode(requestQrcodesDto);
     }

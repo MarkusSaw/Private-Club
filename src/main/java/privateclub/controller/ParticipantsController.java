@@ -18,7 +18,7 @@ public class ParticipantsController {
         return participantsService.getUserById(id);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping
     public ParticipantsDto createParticipant(@RequestBody ParticipantsDto requestParticipantsDto) {
         return participantsService.createUser(requestParticipantsDto);
     }
