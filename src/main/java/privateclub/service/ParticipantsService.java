@@ -1,31 +1,54 @@
 package privateclub.service;
 
 
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import privateclub.dto.ParticipantsDto;
 import privateclub.exception.NotFoundException;
 import privateclub.mapper.ParticipantsMapper;
 import privateclub.model.Participants;
+import privateclub.model.Qrcodes;
 import privateclub.repository.ParticipantsRepository;
+import privateclub.repository.QrcodesRepository;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @Service
 public class ParticipantsService {
 
     private final ParticipantsRepository participantsRepository;
+    private final QrcodesRepository qrcodesRepository;
 
+    @Transactional
     public ParticipantsDto getUserById(Long id) {
         Participants participants = participantsRepository.findById(id).orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден"));
+        Qrcodes qrcodes = participants.getQrcodes().stream()
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден"));
+
+        participants.getQrcodes().remove(qrcodes);
+        qrcodes.setParticipant(null);
+
+        qrcodesRepository.delete(qrcodes);
         return ParticipantsMapper.toDto(participants);
     }
 
+    @Transactional
     public ParticipantsDto createUser(ParticipantsDto requestParticipantsDto) {
         Participants createParticipants = new Participants();
         createParticipants.setFirstname(requestParticipantsDto.firstname());
         createParticipants.setLastname(requestParticipantsDto.lastname());
         createParticipants.setPatronymic(requestParticipantsDto.patronymic());
         Participants savedParticipant = participantsRepository.save(createParticipants);
+
+        Qrcodes qrcodes = new Qrcodes();
+        qrcodes.setParticipant(savedParticipant);
+        qrcodes.setCodes(UUID.randomUUID());
+        qrcodesRepository.save(qrcodes);
+
+        savedParticipant.getQrcodes().add(qrcodes);
         return ParticipantsMapper.toDto(savedParticipant);
     }
 
