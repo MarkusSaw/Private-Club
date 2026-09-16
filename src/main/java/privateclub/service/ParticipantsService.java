@@ -7,19 +7,20 @@ import org.springframework.stereotype.Service;
 import privateclub.dto.ParticipantsDto;
 import privateclub.exception.NotFoundException;
 import privateclub.mapper.ParticipantsMapper;
+import privateclub.mapper.QrcodesMapper;
 import privateclub.model.Participants;
 import privateclub.model.Qrcodes;
 import privateclub.repository.ParticipantsRepository;
-import privateclub.repository.QrcodesRepository;
 
 import java.util.UUID;
+
 
 @AllArgsConstructor
 @Service
 public class ParticipantsService {
 
     private final ParticipantsRepository participantsRepository;
-    private final QrcodesRepository qrcodesRepository;
+    private final QrcodesService qrcodesService;
 
     @Transactional
     public ParticipantsDto getUserById(Long id) {
@@ -31,7 +32,7 @@ public class ParticipantsService {
         participants.getQrcodes().remove(qrcodes);
         qrcodes.setParticipant(null);
 
-        qrcodesRepository.delete(qrcodes);
+        qrcodesService.deleteCode(qrcodes.getId());
         return ParticipantsMapper.toDto(participants);
     }
 
@@ -43,12 +44,12 @@ public class ParticipantsService {
         createParticipants.setPatronymic(requestParticipantsDto.patronymic());
         Participants savedParticipant = participantsRepository.save(createParticipants);
 
-        Qrcodes qrcodes = new Qrcodes();
-        qrcodes.setParticipant(savedParticipant);
-        qrcodes.setCodes(UUID.randomUUID());
-        qrcodesRepository.save(qrcodes);
+        Qrcodes qrcode = new Qrcodes();
+        qrcode.setParticipant(savedParticipant);
+        qrcode.setCodes(UUID.randomUUID());
+        qrcodesService.createCode(QrcodesMapper.toQrDto(qrcode));
 
-        savedParticipant.getQrcodes().add(qrcodes);
+        savedParticipant.getQrcodes().add(qrcode);
         return ParticipantsMapper.toDto(savedParticipant);
     }
 
