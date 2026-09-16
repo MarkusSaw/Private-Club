@@ -26,15 +26,8 @@ public class Qrcodes {
 
     @ManyToOne
     @JoinColumn(name = "participant_id")
-
-
     private Participants participant;
 
-    public Qrcodes(Participants participant){
-        this.codes = UUID.randomUUID();
-        this.participant = participant;
-
-    }
 
 
 }

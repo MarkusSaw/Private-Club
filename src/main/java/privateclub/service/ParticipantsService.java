@@ -30,7 +30,6 @@ public class ParticipantsService {
                 .orElseThrow(() -> new NotFoundException("Пользователь с id " + id + " не найден"));
 
         participants.getQrcodes().remove(qrcodes);
-        qrcodes.setParticipant(null);
 
         qrcodesService.deleteCode(qrcodes.getId());
         return ParticipantsMapper.toDto(participants);
