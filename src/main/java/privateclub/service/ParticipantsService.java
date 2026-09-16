@@ -1,13 +1,12 @@
 package privateclub.service;
 
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import privateclub.dto.ParticipantsDto;
 import privateclub.exception.NotFoundException;
 import privateclub.mapper.ParticipantsMapper;
-import privateclub.mapper.QrcodesMapper;
 import privateclub.model.Participants;
 import privateclub.model.Qrcodes;
 import privateclub.repository.ParticipantsRepository;
@@ -41,14 +40,13 @@ public class ParticipantsService {
         createParticipants.setFirstname(requestParticipantsDto.firstname());
         createParticipants.setLastname(requestParticipantsDto.lastname());
         createParticipants.setPatronymic(requestParticipantsDto.patronymic());
-        Participants savedParticipant = participantsRepository.save(createParticipants);
 
         Qrcodes qrcode = new Qrcodes();
-        qrcode.setParticipant(savedParticipant);
         qrcode.setCodes(UUID.randomUUID());
-        qrcodesService.createCode(QrcodesMapper.toQrDto(qrcode));
+        qrcode.setParticipant(createParticipants);
+        createParticipants.getQrcodes().add(qrcode);
 
-        savedParticipant.getQrcodes().add(qrcode);
+        Participants savedParticipant = participantsRepository.save(createParticipants);
         return ParticipantsMapper.toDto(savedParticipant);
     }
 
